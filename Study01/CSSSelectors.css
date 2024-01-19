@@ -25,3 +25,11 @@ span {
     color: #f1faee;
     font-size: 16px;
 }
+
+.post a {
+    color: #a8dadc;
+}
+
+footer a {
+    color:#e63946;
+}
