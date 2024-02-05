@@ -1,0 +1,15 @@
+section {
+    width: 80%;
+    height: 800px;
+    /* background-image: url(https://images.unsplash.com/photo-1682687982423-295485af248a?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
+    background-size: cover;
+    background-position: top; */
+
+    background: center/cover url(https://images.unsplash.com/photo-1682687982423-295485af248a?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
+    margin: 0 auto;
+}
+
+h1 {
+    font-size: 100px;
+    color: white;
+}
