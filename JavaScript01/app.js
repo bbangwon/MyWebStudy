@@ -1,2 +1,6 @@
-let total = 1 + 3;
-console.log(total);
+// for of loop
+const subreddits = ['soccer', 'popheads', 'cringe', 'books'];
+
+for (const sub of subreddits) {
+    console.log(sub);    
+}
