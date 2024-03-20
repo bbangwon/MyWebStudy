@@ -22,3 +22,8 @@ const id = setInterval(() => console.log("HELLO!!"), 1000);
 // setTimeout() 함수는 일정 시간이 지난 후에 지정된 함수를 실행합니다.
 setTimeout(() => clearInterval(id), 5000);
 
+//filter() 함수는 배열의 각 요소에 대해 한 번씩 제공된 함수를 실행하고, 그 결과가 참인 요소만 모아 새로운 배열을 반환합니다.
+let even = numbers.filter(function (el) {
+    return el % 2 === 0;
+});
+console.log(even);
