@@ -15,3 +15,10 @@ console.log(doubles);
 //화살표 함수로 변경
 const doubles2 = numbers.map(el => el * 2);
 console.log(doubles2);
+
+// setInterval() 함수는 일정 시간 간격으로 지정된 함수를 실행합니다.
+const id = setInterval(() => console.log("HELLO!!"), 1000);
+
+// setTimeout() 함수는 일정 시간이 지난 후에 지정된 함수를 실행합니다.
+setTimeout(() => clearInterval(id), 5000);
+
