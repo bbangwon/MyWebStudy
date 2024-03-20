@@ -11,3 +11,7 @@ const doubles = numbers.map(function (el) {
     return el * 2;
 });
 console.log(doubles);
+
+//화살표 함수로 변경
+const doubles2 = numbers.map(el => el * 2);
+console.log(doubles2);
