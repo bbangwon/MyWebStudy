@@ -39,3 +39,9 @@ let someEven = numbers.some(function (el) {
     return el % 2 === 0;
 });
 console.log(someEven);
+
+//reduce() 함수는 배열의 각 요소에 대해 주어진 함수를 실행하고, 하나의 결과값을 반환합니다.
+let sum = numbers.reduce(function (acc, el) {
+    return acc + el;
+}, 0);
+console.log(sum);
