@@ -45,3 +45,38 @@ let sum = numbers.reduce(function (acc, el) {
     return acc + el;
 }, 0);
 console.log(sum);
+
+
+const person = {
+    firstName: "John",
+    lastName: "Doe",
+    fullName: function () {
+        return this.firstName + " " + this.lastName;
+    },
+    fullName2: () => {
+        //화살표 함수 내부에서 this를 사용하면, 외부에서 this를 참조한다.
+        console.log(this);
+        return this.firstName + " " + this.lastName;
+    },
+    shoutName: function() {
+        setTimeout(function () {
+            //여기서 this는 window 객체를 참조(setTimeout 내부)한다.
+            //setTimeout 내부의 this는 window 객체를 참조하기 때문에, this.firstName과 this.lastName는 undefined가 된다.
+            console.log(this);
+            console.log(this.firstName + " " + this.lastName);
+        }, 3000);
+    },
+    shoutName2: function() {
+        setTimeout(() => {
+            //화살표 함수 내부에서 this는 외부의 this를 참조한다.
+            //setTimeout 내부의 this는 shoutName2 함수의 this를 참조하기 때문에, this.firstName과 this.lastName는 정상적으로 참조된다.
+            console.log(this);
+            console.log(this.firstName + " " + this.lastName);
+        }, 3000);
+    }
+
+
+}
+
+console.log(person.fullName());
+console.log(person.fullName2());
