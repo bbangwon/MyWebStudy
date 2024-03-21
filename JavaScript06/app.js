@@ -27,3 +27,15 @@ let even = numbers.filter(function (el) {
     return el % 2 === 0;
 });
 console.log(even);
+
+//every() 함수는 배열의 모든 요소가 주어진 판별 함수를 통과하는지 테스트합니다.
+let allEven = numbers.every(function (el) {
+    return el % 2 === 0;
+});
+console.log(allEven);
+
+//some() 함수는 배열의 요소 중 하나라도 주어진 판별 함수를 통과하는지 테스트합니다.
+let someEven = numbers.some(function (el) {
+    return el % 2 === 0;
+});
+console.log(someEven);
