@@ -18,6 +18,13 @@ function sum(...nums) {
 }
 console.log(sum(1, 2, 3, 4, 5)); // 15
 
+function sum()
+{
+    console.log(arguments);
+    
+    //arguments is an array-like object
+    return Array.from(arguments).reduce((total, el) => total + el);
+}
 
 
 
