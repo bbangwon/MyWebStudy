@@ -12,7 +12,7 @@ const canine = { family: 'Caninae', furry: true };
 const catDog = { ...feline, ...canine };
 console.log(catDog); // {legs: 4, family: "Caninae", furry: true}
 
-// Rest
+// Rest 
 function sum(...nums) {
     return nums.reduce((total, el) => total + el);
 }
@@ -25,6 +25,18 @@ function sum()
     //arguments is an array-like object
     return Array.from(arguments).reduce((total, el) => total + el);
 }
+
+// 분해 할당 (Destructuring)
+const user = {
+    firstName: 'CherryGarcia8',
+    lastName: 'IceCream',    
+}
+
+function fullName({firstName, lastName}) {    
+    return `${firstName} ${lastName}`;
+}
+
+fullName(user); // "CherryGarcia8 IceCream"
 
 
 
