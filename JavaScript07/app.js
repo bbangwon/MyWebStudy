@@ -26,6 +26,27 @@ function sum()
     return Array.from(arguments).reduce((total, el) => total + el);
 }
 
+//배열 분해
+const scores = [95, 85, 75];
+const [high, low, ...rest] = scores;
+console.log(high); // 95
+console.log(low); // 85
+console.log(rest); // [75]
+
+//객체 분해
+const user = {
+    email: 'a@a.com',
+    password: '12345',
+    firstName: 'John',
+    lastName: 'Doe',
+    born: 2000
+};
+const { email: e_mail, password: pwd, born, ...name } = user;
+console.log(e_mail); // 'a@a.com'
+console.log(pwd); // '12345'
+console.log(born); // 2000
+console.log(name); // {firstName: "John", lastName: "Doe"}
+
 
 
 
