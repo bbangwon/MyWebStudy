@@ -12,3 +12,15 @@ form.addEventListener('submit', function(evt) {
     list.appendChild(li);
     input.value = '';
 });
+
+//input 요소의 값이 변경될 때마다 이벤트가 발생한다.
+//(change 이벤트는 input 요소의 값이 변경될 때 발생한다.)
+input.addEventListener('change', function(evt) {
+    console.log('input changed');
+});
+
+//input 요소의 값이 변경될 때마다 이벤트가 발생한다.
+//(input 이벤트는 키보드 입력이 발생할 때마다 발생한다.)
+input.addEventListener('input', function(evt) {
+    console.log('input event');
+});
