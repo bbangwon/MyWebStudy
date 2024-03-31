@@ -24,3 +24,11 @@ input.addEventListener('change', function(evt) {
 input.addEventListener('input', function(evt) {
     console.log('input event');
 });
+
+const eventBubble = document.querySelector('#eventBubble');
+eventBubble.addEventListener('click', function(evt) {
+    alert('eventBubble clicked');
+    
+    //이벤트 전파를 막는다.
+    evt.stopPropagation();
+});
