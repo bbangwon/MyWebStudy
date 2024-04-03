@@ -24,17 +24,35 @@ const fakeRequestPromise = (url) => {
 }
 
 //콜백 지옥
-fakeRequestCallback('books.com/page1', function(response) {
-    console.log('IT WORKED!!!');
-    console.log(response);
+// fakeRequestCallback('books.com/page1', function(response) {
+//     console.log('IT WORKED!!!');
+//     console.log(response);
 
-    fakeRequestCallback('books.com/page2', function(response) {
-        console.log('IT WORKED AGAIN!!!');
-        console.log(response);
-    }, function(err){
-        console.log('Second ERROR!!!', err);
+//     fakeRequestCallback('books.com/page2', function(response) {
+//         console.log('IT WORKED AGAIN!!!');
+//         console.log(response);
+//     }, function(err){
+//         console.log('Second ERROR!!!', err);
+//     });
+
+// }, function(err){
+//     console.log('ERROR!!!', err);
+// });
+
+//프로미스 체이닝
+fakeRequestPromise('yelp.com/api/coffee/page1')
+    .then(() => {        
+        console.log('IT WORKED!!! (page1)');
+
+        fakeRequestPromise('yelp.com/api/coffee/page2')
+            .then(() => {        
+                console.log('IT WORKED!!! (page2)');
+            })
+            .catch(() => {
+                console.log('OH NO, A REQUEST ERROR!!! (page2)');
+            });
+    })
+    .catch(() => {
+        console.log('OH NO, A REQUEST ERROR!!! (page1)');
     });
 
-}, function(err){
-    console.log('ERROR!!!', err);
-});
