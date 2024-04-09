@@ -122,3 +122,31 @@ class Color {
 
 const c1 = new Color(255, 67, 89, 'tomato');
 const c2 = new Color(230, 126, 34, 'carrot');
+
+class Pet { 
+    constructor(name, age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    eat() {
+        return `${this.name} is eating!`;
+    }
+
+}
+
+class Cat extends Pet {
+    constructor(name, age, livesLeft = 9) {
+        super(name, age);
+        this.livesLeft = livesLeft;
+    }
+    meow() {
+        return `${this.name} says Meow!`;
+    }
+}
+
+class Dog extends Pet{
+    bark() {
+        return `${this.name} says Woof!`;
+    }
+}
