@@ -83,6 +83,42 @@ class Color {
         const { r, g, b } = this;
         return '#' + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);   
     }
+
+    calcHsl() {
+        let { r, g, b } = this;
+        r /= 255;
+        g /= 255;
+        b /= 255;
+        const l = Math.max(r, g, b);
+        const s = l - Math.min(r, g, b);
+        const h = s
+          ? l === r
+            ? (g - b) / s
+            : l === g
+            ? 2 + (b - r) / s
+            : 4 + (r - g) / s
+          : 0;
+        return [
+          60 * h < 0 ? 60 * h + 360 : 60 * h,
+          100 * (s ? (l <= 0.5 ? s / (2 * l - s) : s / (2 - (2 * l - s))) : 0),
+          (100 * (2 * l - s)) / 2,
+        ];
+    }
+
+    hsl() {
+        const [h, s, l] = this.calcHsl();
+        return `hsl(${h}, ${s}%, ${l}%)`;
+    }
+    opposite() {
+        const [h, s, l] = this.calcHsl();
+        return `hsl(${(h + 180) % 360}, ${s}%, ${l}%)`;    
+    }
+
+    fullySaturated() {
+        const [h, s, l] = this.calcHsl();
+        return `hsl(${h}, 100%, ${l}%)`;
+    }
 }
 
 const c1 = new Color(255, 67, 89, 'tomato');
+const c2 = new Color(230, 126, 34, 'carrot');
