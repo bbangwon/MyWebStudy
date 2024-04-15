@@ -25,6 +25,16 @@ app.get('/dogs', (req, res) => {
     res.send('<h1>강아지</h1>');
 });
 
+app.get('/r/:subreddit', (req, res) => {
+    const { subreddit } = req.params;
+    res.send(`<h1>현재 보고 계신 페이지는 ${subreddit}입니다.</h1>`);
+});
+
+app.get('/r/:subreddit/:postId', (req, res) => {
+    const { subreddit, postId } = req.params;
+    res.send(`<h1>현재 보고 계신 페이지는 ${subreddit}의 ${postId}번 글입니다.</h1>`);
+});
+
 app.get('*', (req, res) => {
     res.send('<h1>해당 경로에는 아무것도 없습니다.</h1>');
 });
