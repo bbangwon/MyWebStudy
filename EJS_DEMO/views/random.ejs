@@ -1,11 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+<%- include('partials/head') %>
+
+    <%- include('partials/navbar') %>
     <h1>당신의 무작위 번호는 : <%= num %></h1>
     <% if(num %2 === 0) { %>
         <h2>짝수입니다.</h2>
@@ -13,5 +8,5 @@
         <h2>홀수입니다.</h2>
     <% } %>
     <h3><%= num%2 === 0? '짝수': '홀수' %></h3>
-</body>
-</html>
+    
+<%- include('partials/footer') %>
