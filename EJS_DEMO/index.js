@@ -6,6 +6,10 @@ import redditData from './data.json' assert {type: "json"};
 
 const app = express();
 
+//전체 경로를 가져와서 정적 파일을 제공
+const publicFolder = fileURLToPath(new URL("./public", import.meta.url));
+app.use(express.static(publicFolder));
+
 // EJS 템플릿 엔진 설정
 app.set('view engine', 'ejs');
 
