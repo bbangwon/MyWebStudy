@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>댓글 수정</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 
 <body>
@@ -19,23 +21,23 @@
         const submitButton = document.querySelector('#submitButton');
         const comment = document.querySelector('#comment');
 
-        submitButton.addEventListener('click', async e => {
+        submitButton.addEventListener('click', e => {
             e.preventDefault();
-            console.log(JSON.stringify({ comment: comment.value }));
-            const result = await fetch(`/comments/<%= comment.id %>`, {
-                method: 'PATCH',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ comment: comment.value }),
-            }).then(res => res.json());
 
-            if (result.success) {
-                alert('수정되었습니다.');
-                window.location.href = '/comments';
-            } else {
-                alert(result.msg);
-            }
+            axios.patch(`/comments/<%= comment.id %>`, {
+                comment: comment.value
+            })
+                .then(res => {
+                    if (res.data.success) {
+                        alert('수정되었습니다.');
+                        window.location.href = '/comments';
+                    } else {
+                        alert(res.data.msg);
+                    }
+                })
+                .catch(err => {
+                    alert(err.response.data.msg);
+                });
         });
     </script>
 </body>

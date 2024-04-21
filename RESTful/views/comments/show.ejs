@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>댓글보기</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 <body>
     <h1>Comment id: <%= comment.id %></h1>
@@ -17,23 +19,25 @@
     <script>
         const deleteButton = document.querySelector('#deleteButton');
 
-        deleteButton.addEventListener('click', async e => {            
+        deleteButton.addEventListener('click', e => {            
             e.preventDefault();
 
             if (!confirm('정말 삭제하시겠습니까?')) {
                 return;
             }
 
-            const result = await fetch(`/comments/<%= comment.id %>`, {
-                method: 'DELETE',
-            }).then(res => res.json());
-
-            if (result.success) {
-                alert('삭제되었습니다.');
-                window.location.href = '/comments';
-            } else {
-                alert(result.msg);
-            }
+            axios.delete(`/comments/<%= comment.id %>`)
+                .then(res => {
+                    if (res.data.success) {
+                        alert('삭제되었습니다.');
+                        window.location.href = '/comments';
+                    } else {
+                        alert(res.data.msg);
+                    }
+                })
+                .catch(err => {
+                    alert(err.response.data.msg);
+                });
         });
     </script>
 </body>

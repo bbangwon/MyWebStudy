@@ -58,7 +58,7 @@ app.get('/comments/:id/edit', (req, res) => {
 });
 
 app.patch('/comments/:id', (req, res) => {
-    const { id } = req.params;
+    const { id } = req.params;    
     const newCommentText = req.body.comment;    
     const comment = comments.find(comment => comment.id === id);
     comment.comment = newCommentText;
