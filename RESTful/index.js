@@ -25,7 +25,7 @@ const comments = [
         comment: '저도 날씨가 좋다고 생각해요.'
     },
     {
-        id: uuidv4(),
+        id: '6fa8129f-aecd-4fcc-8743-375760828b0b',
         username: '이영희',
         comment: '날씨가 좋으면 기분이 좋아지죠.'
     }
@@ -49,6 +49,14 @@ app.get('/comments/:id', (req, res) => {
     const { id } = req.params;
     const comment = comments.find(comment => comment.id === id);
     res.render('comments/show', { comment });
+});
+
+app.patch('/comments/:id', (req, res) => {
+    const { id } = req.params;
+    const newCommentText = req.body.comment;    
+    const comment = comments.find(comment => comment.id === id);
+    comment.comment = newCommentText;
+    res.redirect('/comments');
 });
 
 

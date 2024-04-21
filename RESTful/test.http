@@ -1,0 +1,7 @@
+PATCH http://localhost:3000/comments/6fa8129f-aecd-4fcc-8743-375760828b0b HTTP/1.1
+content-type: application/json
+
+{
+  "comment": "그럼요!"
+}
+
