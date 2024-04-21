@@ -13,7 +13,7 @@ app.set('view engine', 'ejs');
 const viewsFolder = fileURLToPath(new URL("./views", import.meta.url));
 app.set('views', viewsFolder);
 
-const comments = [
+let comments = [
     {
         id: uuidv4(),
         username: '홍길동',
@@ -65,7 +65,11 @@ app.patch('/comments/:id', (req, res) => {
     res.send({ success: true });
 });
 
-
+app.delete('/comments/:id', (req, res) => {
+    const { id } = req.params;
+    comments = comments.filter(comment => comment.id !== id);
+    res.send({ success: true });
+});
 
 app.listen(3000, () => {
     console.log('3000번 포트에서 서버 실행 중입니다.');
