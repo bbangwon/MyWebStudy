@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>댓글 수정</title>
+</head>
+
+<body>
+    <h1>수정</h1>
+    <form action="/comments/<%= comment.id %>">
+        <input type="text" id="comment" value="<%= comment.comment %>">
+        <button id="submitButton">수정</button>
+    </form>
+    <a href="/comments">뒤로</a>
+
+    <script>
+        const submitButton = document.querySelector('#submitButton');
+        const comment = document.querySelector('#comment');
+
+        submitButton.addEventListener('click', async e => {
+            e.preventDefault();
+            console.log(JSON.stringify({ comment: comment.value }));
+            const result = await fetch(`/comments/<%= comment.id %>`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ comment: comment.value }),
+            }).then(res => res.json());
+
+            if (result.success) {
+                alert('수정되었습니다.');
+                window.location.href = '/comments';
+            } else {
+                alert(result.msg);
+            }
+        });
+    </script>
+</body>
+
+</html>
