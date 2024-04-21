@@ -11,10 +11,11 @@
     <h1>댓글 목록</h1>
     <ul>
         <% for(let c of comments) { %>
-            <li>
+            <li>                
                 <%= c.comment%> - <b>
                         <%=c.username%>
                     </b>
+                    <a href="/comments/<%=c.id%>">디테일 보기</a>
             </li>
             <% } %>
     </ul>
