@@ -1,5 +1,6 @@
 import express from 'express';
 import { fileURLToPath } from "url";
+import { v4 as uuidv4 } from 'uuid';
 
 const app = express();
 
@@ -14,17 +15,17 @@ app.set('views', viewsFolder);
 
 const comments = [
     {
-        id: 1,
+        id: uuidv4(),
         username: '홍길동',
         comment: '오늘 날씨가 참 좋네요.'
     },
     {
-        id: 2,
+        id: uuidv4(),
         username: '김철수',
         comment: '저도 날씨가 좋다고 생각해요.'
     },
     {
-        id: 3,
+        id: uuidv4(),
         username: '이영희',
         comment: '날씨가 좋으면 기분이 좋아지죠.'
     }
@@ -40,13 +41,13 @@ app.get('/comments/new', (req, res) => {
 
 app.post('/comments', (req, res) => {
     const { username, comment } = req.body;
-    comments.push({ id: comments.length + 1 ,username, comment });
+    comments.push({ id: uuidv4() ,username, comment });
     res.redirect('/comments');
 });
 
 app.get('/comments/:id', (req, res) => {
     const { id } = req.params;
-    const comment = comments.find(comment => comment.id === parseInt(id));
+    const comment = comments.find(comment => comment.id === id);
     res.render('comments/show', { comment });
 });
 
