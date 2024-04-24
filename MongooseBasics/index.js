@@ -29,30 +29,34 @@ async function main() {
     //     { title: 'Moonrise Kingdom', year: 2012, score: 7.3, rating: 'PG-13' }
     // ]);
 
-    //데이터 조회
-    const movies = await Movie.find({});
-    console.log(movies);      
-    console.log('---------------------------------');
+    // //데이터 조회
+    // const movies = await Movie.find({});
+    // console.log(movies);      
+    // console.log('---------------------------------');
 
-    //첫번째 데이터 조회
-    const movie = await Movie.findOne({});
-    console.log(movie);
+    // //첫번째 데이터 조회
+    // const movie = await Movie.findOne({});
+    // console.log(movie);
 
-    console.log('---------------------------------');
+    // console.log('---------------------------------');
 
-    //조건에 맞는 데이터 조회
-    const movies2 = await Movie.find({ year: { $gte: 2000 } });
-    console.log(movies2);
+    // //조건에 맞는 데이터 조회
+    // const movies2 = await Movie.find({ year: { $gte: 2000 } });
+    // console.log(movies2);
 
-    console.log('---------------------------------');
-    //findById
-    const moviefromId = await Movie.findById('66288cb8ab56a2277ed23d26');
-    console.log(moviefromId);
+    // console.log('---------------------------------');
+    // //findById
+    // const moviefromId = await Movie.findById('66288cb8ab56a2277ed23d26');
+    // console.log(moviefromId);
 
-    //데이터 업데이트
-    await Movie.updateOne({ title: 'Amadeus' }, { score: 9.0 });
-    await Movie.updateMany({ title: {$in: ['Amelie', 'Alien']}}, {score: 7.0});
+    // //데이터 업데이트
+    // await Movie.updateOne({ title: 'Amadeus' }, { score: 9.0 });
+    // await Movie.updateMany({ title: {$in: ['Amelie', 'Alien']}}, {score: 7.0});
 
+    // //데이터 삭제
+    // await Movie.deleteOne({ title: 'Amadeus' });
+    // await Movie.deleteMany({ year: { $gte: 2000 } });
+    
     
 }
 
