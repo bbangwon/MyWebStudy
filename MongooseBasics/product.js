@@ -16,7 +16,7 @@ async function main() {
         price: {
             type: Number,
             required: true,
-            min: 0,
+            min: [0, 'Price must be positive'],
         },
         onSale: {
             type: Boolean,
@@ -32,21 +32,27 @@ async function main() {
                 type: Number,
                 default: 0,
             }
+        },
+        size: {
+            type: String,
+            enum: ['S', 'M', 'L'],
         }
     });
     const Product = mongoose.model('Product', productSchema);
 
-    //스키마 유효성 검사
+    // 스키마 유효성 검사
     const bike = new Product({
-        name: 'Bike Helmet', price: 19.50,
-        categories: ['Cycling', 'Safety'],
-        qty: {
-            online: 10,
-            inStore: 20
-        }
+        name: 'Tire Pump', price: -19.50,
+        categories: ['Cycling'],
+        size: 'S'
     });
 
     bike.save()
         .then(data => console.log(data))
         .catch(err => console.log(err));
+
+    // //업데이트 유효성 검사
+    // Product.findOneAndUpdate({ name: 'Tire Pump' }, { price: -19.50 }, { new: true, runValidators: true })
+    //     .then(data => console.log(data))
+    //     .catch(err => console.log(err));
 }
