@@ -48,6 +48,12 @@ async function main() {
     //findById
     const moviefromId = await Movie.findById('66288cb8ab56a2277ed23d26');
     console.log(moviefromId);
+
+    //데이터 업데이트
+    await Movie.updateOne({ title: 'Amadeus' }, { score: 9.0 });
+    await Movie.updateMany({ title: {$in: ['Amelie', 'Alien']}}, {score: 7.0});
+
+    
 }
 
 
