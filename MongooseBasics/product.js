@@ -55,8 +55,12 @@ async function main() {
         return this.save();
     }
 
-    const Product = mongoose.model('Product', productSchema);
+    //스태틱 메소드
+    productSchema.static.fireSale = function() {
+        return this.updateMany({}, { onSale: true, price: 0 });
+    }
 
+    const Product = mongoose.model('Product', productSchema);   
 
     const findProduct = async () => {
         const foundProduct = await Product.findOne({ name: 'Tire Pump' });
@@ -65,6 +69,8 @@ async function main() {
     }
 
     findProduct();
+    
+    Product.fireSale().then(res => console.log(res));
 
     // // 스키마 유효성 검사
     // const bike = new Product({
