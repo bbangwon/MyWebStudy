@@ -38,21 +38,49 @@ async function main() {
             enum: ['S', 'M', 'L'],
         }
     });
+    
+    //인스턴스 메소드
+    productSchema.methods.greet = function() {
+        console.log('Hello!');
+        console.log(`- from ${this.name}`);
+    }
+
+    productSchema.methods.toggleOnSale = function() {
+        this.onSale = !this.onSale;
+        return this.save();
+    }
+
+    productSchema.methods.addCategory = function(newCat) {
+        this.categories.push(newCat);
+        return this.save();
+    }
+
     const Product = mongoose.model('Product', productSchema);
 
-    // 스키마 유효성 검사
-    const bike = new Product({
-        name: 'Tire Pump', price: -19.50,
-        categories: ['Cycling'],
-        size: 'S'
-    });
 
-    bike.save()
-        .then(data => console.log(data))
-        .catch(err => console.log(err));
+    const findProduct = async () => {
+        const foundProduct = await Product.findOne({ name: 'Tire Pump' });
+        await foundProduct.toggleOnSale();
+        await foundProduct.addCategory('Outdoors');
+    }
+
+    findProduct();
+
+    // // 스키마 유효성 검사
+    // const bike = new Product({
+    //     name: 'Tire Pump', price: 19.50,
+    //     categories: ['Cycling'],
+    //     size: 'S'
+    // });
+
+    // bike.save()
+    //     .then(data => console.log(data))
+    //     .catch(err => console.log(err));
 
     // //업데이트 유효성 검사
     // Product.findOneAndUpdate({ name: 'Tire Pump' }, { price: -19.50 }, { new: true, runValidators: true })
     //     .then(data => console.log(data))
     //     .catch(err => console.log(err));
+
+
 }
