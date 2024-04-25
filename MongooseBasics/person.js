@@ -22,6 +22,17 @@ async function main() {
         this.last = v.substr(v.indexOf(' ') + 1);
     });
 
+    //pre, post middleware
+    personSchema.pre('save', async function() {
+        this.first = 'YO';
+        this.last = 'MAMA';
+        console.log('About to save');
+    });
+
+    personSchema.post('save', async function() {
+        console.log('Just saved');
+    });
+
     const Person = mongoose.model('Person', personSchema);
     const jordan = new Person({ first: 'Jordan', last: 'Hayashi' });
 
@@ -31,6 +42,8 @@ async function main() {
     console.log(jordan.fullName);
     console.log(jordan.first);
     console.log(jordan.last);
+
+    jordan.save();
 
     
 }
