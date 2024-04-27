@@ -21,8 +21,9 @@ app.set('views', viewsFolder);
 
 app.set('view engine', 'ejs');
 
-app.get('/dogs', (req, res) => {
-   res.send('Dogs');
+app.get('/products', async (req, res) => {
+    const products = await Product.find({});
+    res.render('products/index', { products });
 });
 
 app.listen(3000, () => {
