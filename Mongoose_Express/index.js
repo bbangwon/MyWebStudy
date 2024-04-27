@@ -20,6 +20,7 @@ const viewsFolder = fileURLToPath(new URL("./views", import.meta.url));
 app.set('views', viewsFolder);
 
 app.set('view engine', 'ejs');
+app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.get('/products', async (req, res) => {
@@ -43,6 +44,18 @@ app.get('/products/:id', async (req, res) => {
     res.render('products/show', { product });
 });
 
+app.get('/products/:id/edit', async (req, res) => {
+    const { id } = req.params;
+    const product = await Product.findById(id);
+    res.render('products/edit', { product });
+});
+
+app.put('/products/:id', async (req, res) => {    
+    const { id } = req.params;   
+    const product = await Product.findByIdAndUpdate(id, req.body, {runValidators: true, new: true});
+    console.log(product);
+    res.send({ success: true });
+});  
 
 app.listen(3000, () => {
     console.log('Server is running on port 3000');

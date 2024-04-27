@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Product</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <h1>Edit Product</h1>
+    <form action="/products/<%= product._id %>" method="POST">
+        <label for="name">Name</label>
+        <input type="text" name="name" id="name" placeholder="product name" value="<%= product.name %>">
+        <label for="price">Price</label>
+        <input type="number" name="price" id="price" placeholder="price" value="<%= product.price %>">
+        <label for="category">Category</label>
+        <select name="category" id="category">
+            <option value="fruit">fruit</option>
+            <option value="vegetable">vegetable</option>
+            <option value="dairy">dairy</option>
+        </select>
+        <button id="submitButton">Submit</button>
+    </form>
+
+    <a href="/products/<%= product._id %>">Cancel</a>
+
+    <script>
+        const submitButton = document.querySelector('#submitButton');        
+        submitButton.addEventListener('click', e => {
+            e.preventDefault();
+
+            const name = document.querySelector('#name');
+            const price = document.querySelector('#price');
+            const category = document.querySelector('#category');
+
+            axios.put(`/products/<%= product._id %>`, {
+                name: name.value,
+                price: price.value,
+                category: category.value
+            })
+                .then(res => {
+                    if (res.data.success) {
+                        window.location.href = '/products/<%= product._id %>';
+                    } else {
+                        alert(res.data.msg);
+                    }
+                })
+                .catch(err => {
+                    alert(err.response.data.msg);
+                });
+        });
+    </script>
+</body>
+</html>
