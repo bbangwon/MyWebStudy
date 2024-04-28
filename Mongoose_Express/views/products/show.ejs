@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= product.name %></title>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 <body>
     <h1><%= product.name %></h1>
@@ -11,5 +13,32 @@
     <p>Category : <%= product.category %></p>
     <a href="/products">All Products</a>
     <a href="/products/<%= product._id %>/edit">Edit</a>
+    <form action="/products/<%= product._id %>" method="POST">
+        <button id="submitButton">Delete</button>
+    </form>
+
+
+    <script>
+        const submitButton = document.querySelector('#submitButton');        
+        submitButton.addEventListener('click', e => {
+            e.preventDefault();
+            
+            if (!confirm('Delete it?')) {
+                return;
+            }
+
+            axios.delete(`/products/<%= product._id %>`)
+                .then(res => {
+                    if (res.data.success) {
+                        window.location.href = '/products';
+                    } else {
+                        alert(res.data.msg);
+                    }
+                })
+                .catch(err => {
+                    alert(err.response.data.msg);
+                });
+        });
+    </script>
 </body>
 </html>

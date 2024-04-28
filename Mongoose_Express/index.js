@@ -56,7 +56,13 @@ app.put('/products/:id', async (req, res) => {
     const product = await Product.findByIdAndUpdate(id, req.body, {runValidators: true, new: true});
     console.log(product);
     res.send({ success: true });
-});  
+}); 
+
+app.delete('/products/:id', async (req, res) => {
+    const { id } = req.params;
+    const product = await Product.findByIdAndDelete(id);
+    res.send({ success: true });
+});
 
 app.listen(3000, () => {
     console.log('Server is running on port 3000');
