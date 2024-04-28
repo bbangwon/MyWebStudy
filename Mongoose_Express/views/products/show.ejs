@@ -10,7 +10,7 @@
 <body>
     <h1><%= product.name %></h1>
     <p>Price: $<%= product.price %></p>
-    <p>Category : <%= product.category %></p>
+    <p>Category : <a href="/products?category=<%= product.category %>"><%= product.category %></a></p>
     <a href="/products">All Products</a>
     <a href="/products/<%= product._id %>/edit">Edit</a>
     <form action="/products/<%= product._id %>" method="POST">
