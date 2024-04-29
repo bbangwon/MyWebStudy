@@ -15,10 +15,10 @@ app.use('/dogs', (req, res, next) => {
     next();
 });
 
-app.use((req, res, next) => {
+const verfyPassword = ((req, res, next) => {
     const { password } = req.query;
     if(password === 'chickennugget') {
-        next();
+        return next();
     }
     res.send('Sorry you need a password!');    
 });
@@ -43,7 +43,7 @@ app.get('/dogs', (req, res) => {
     res.send('Woof Woof');
 });
 
-app.get('/secret', (req, res) => {
+app.get('/secret', verfyPassword, (req, res) => {
     res.send('My secret is: Sometimes I wear headphones in public so I don\'t have to talk to anyone');
 });
 
