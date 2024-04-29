@@ -4,6 +4,15 @@ import morgan from 'morgan';
 const app = express();
 
 app.use(morgan('tiny'));
+app.use((req, res, next) => {
+    console.log('Hello, I am a middleware');    
+    return next();
+});
+
+app.use((req, res, next) => {
+    console.log('Hello, I am another middleware');    
+    return next();
+});
 
 app.get('/', (req, res) => {
     res.send('Home Page');
