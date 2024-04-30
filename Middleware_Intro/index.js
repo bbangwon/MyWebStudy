@@ -55,6 +55,18 @@ app.use((req, res) => {
     res.status(404).send('Not Found');
 })
 
+//에러 핸들러
+app.use((err, req, res, next) => {
+    console.log('*******************************');
+    console.log('**********ERROR HANDLER********');
+    console.log('*******************************');
+    console.log(err);
+
+    //빌트인 에러핸들러 실행
+    next(err);
+    //res.status(500).send('Something went wrong');
+});
+
 app.listen(3000, () => {
     console.log('Server is running on port 3000');
 });
