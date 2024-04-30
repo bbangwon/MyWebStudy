@@ -2,6 +2,7 @@ import express from 'express';
 import { fileURLToPath } from "url";
 import mongoose from 'mongoose';
 import Product from './models/product.js';
+import AppError from './AppError.js';
 
 //Express
 const app = express();
@@ -45,16 +46,27 @@ app.post('/products', async (req, res) => {
     res.redirect(`/products/${newProduct._id}`);
 });
 
-app.get('/products/:id', async (req, res) => {
+app.get('/products/:id', async (req, res, next) => {
     const { id } = req.params;
     const product = await Product.findById(id);
+    if(!product) {
+        return next(new AppError(404, 'Product not found'));
+    }
     res.render('products/show', { product });
 });
 
-app.get('/products/:id/edit', async (req, res) => {
+app.get('/products/:id/edit', async (req, res, next) => {
     const { id } = req.params;
     const product = await Product.findById(id);
+    if(!product) {
+        return next(new AppError(404, 'Product not found'));
+    }
     res.render('products/edit', { product, categories });
+});
+
+app.use((err, req, res, next) => {
+    const { status = 500, message = 'Something went wrong' } = err;
+    res.status(status).send(message);
 });
 
 app.put('/products/:id', async (req, res) => {    
