@@ -70,6 +70,18 @@ app.get('/products/:id/edit', wrapAsync(async (req, res, next) => {
     res.render('products/edit', { product, categories });
 }));
 
+const handleValidationErr = err => {
+    console.dir(err);
+    return new AppError(400, `Validation failed...${err.message}`);
+}
+
+app.use((err, req, res, next) => {
+    console.log(err.name);
+    if(err.name === 'ValidationError') 
+        err = handleValidationErr(err);
+    next(err);
+});
+
 app.use((err, req, res, next) => {
     const { status = 500, message = 'Something went wrong' } = err;
     res.status(status).send(message);

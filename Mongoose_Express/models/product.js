@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 const productSchema = new mongoose.Schema({
     name: {
         type: String,
-        required: true
+        required: [true, '이름은 반드시 입력해야합니다.']
     },
     price: {
         type: Number,
