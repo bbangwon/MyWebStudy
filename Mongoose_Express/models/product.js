@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
+import { Schema } from 'mongoose';
 
-const productSchema = new mongoose.Schema({
+const productSchema = new Schema({
     name: {
         type: String,
         required: [true, '이름은 반드시 입력해야합니다.']
@@ -14,6 +15,10 @@ const productSchema = new mongoose.Schema({
         type: String,
         enum: ['fruit', 'vegetable', 'dairy'],        
         lowercase: true
+    },
+    farm: {
+        type: Schema.Types.ObjectId,
+        ref: 'Farm'
     }
 });
 
