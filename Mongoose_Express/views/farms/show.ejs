@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= farm.name %></title>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 <body>
     <h1><%= farm.name %></h1>
@@ -18,5 +20,32 @@
     </ul>
     <a href="/farms/<%= farm._id %>/products/new">New Products</a>
     <a href="/farms">All Farms</a>
+    <form action="/farms/<%= farm._id %>" method="POST">
+        <button id="submitButton">Delete</button>
+    </form>
+
+
+    <script>
+        const submitButton = document.querySelector('#submitButton');        
+        submitButton.addEventListener('click', e => {
+            e.preventDefault();
+            
+            if (!confirm('Delete it?')) {
+                return;
+            }
+
+            axios.delete(`/farms/<%= farm._id %>`)
+                .then(res => {
+                    if (res.data.success) {
+                        window.location.href = '/farms';
+                    } else {
+                        alert(res.data.msg);
+                    }
+                })
+                .catch(err => {
+                    alert(err.response.data.msg);
+                });
+        });
+    </script>
 </body>
 </html>
