@@ -2,6 +2,7 @@ import express from 'express';
 import { fileURLToPath } from "url";
 import mongoose from 'mongoose';
 import Product from './models/product.js';
+import Farm from './models/farm.js';
 import AppError from './AppError.js';
 
 //Express
@@ -23,6 +24,25 @@ app.set('views', viewsFolder);
 app.set('view engine', 'ejs');
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+
+
+// FARM ROUTES
+app.get('/farms', async (req, res) => {
+    const farms = await Farm.find({});
+    res.render('farms/index', { farms });
+});
+
+app.get('/farms/new', (req, res) => {
+    res.render('farms/new');    
+});
+
+app.post('/farms', async (req, res) => {
+    const farm = new Farm(req.body);
+    await farm.save();
+    res.redirect('/farms');
+});
+
 
 const categories = ['fruit', 'vegetable', 'dairy'];
 app.get('/products', wrapAsync(async (req, res, next) => {
