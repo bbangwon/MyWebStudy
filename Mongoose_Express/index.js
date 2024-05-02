@@ -96,7 +96,7 @@ function wrapAsync(fn) {
 
 app.get('/products/:id', wrapAsync(async (req, res, next) => {
     const { id } = req.params;
-    const product = await Product.findById(id);
+    const product = await Product.findById(id).populate('farm', 'name');
     if (!product) {
         throw new AppError(404, 'Product not found');
     }
