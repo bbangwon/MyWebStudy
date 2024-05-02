@@ -43,6 +43,11 @@ app.post('/farms', async (req, res) => {
     res.redirect('/farms');
 });
 
+app.get('/farms/:id', async (req, res) => {
+    const { id } = req.params;
+    const farm = await Farm.findById(id).populate('products');
+    res.render('farms/show', { farm });
+});
 
 const categories = ['fruit', 'vegetable', 'dairy'];
 app.get('/products', wrapAsync(async (req, res, next) => {
