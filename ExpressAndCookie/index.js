@@ -6,7 +6,7 @@ import cookieParser from 'cookie-parser';
 
 const app = express();
 
-app.use(cookieParser());
+app.use(cookieParser('thisismysecret'));
 
 app.get('/greet', (req, res) => {
     const { name = "No-name" } = req.cookies;
@@ -14,7 +14,19 @@ app.get('/greet', (req, res) => {
 });
 
 app.get('/setname', (req, res) => {
-    res.cookie('name', 'breadone').send('name has been set');
+    res.cookie('name', 'breadone');
+    res.cookie('animal', 'dog');
+    res.send('name has been set');
+});
+
+app.get('/getsignedcookie', (req, res) => {
+    res.cookie('fruit', 'grape', { signed: true });
+    res.send('signed cookie has been set');
+});
+
+app.get('/verifyfruit', (req, res) => {
+    console.log(req.signedCookies);
+    res.send(req.signedCookies);
 });
 
 app.use('/admin', admin);
