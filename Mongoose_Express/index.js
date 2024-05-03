@@ -4,6 +4,10 @@ import mongoose from 'mongoose';
 import Product from './models/product.js';
 import Farm from './models/farm.js';
 import AppError from './AppError.js';
+import session from 'express-session';
+import flash from 'connect-flash';
+
+
 
 //Express
 const app = express();
@@ -18,6 +22,16 @@ mongoose.connect('mongodb://localhost:27017/farmStand')
         console.log(err);
     });
 
+//Session 설정
+const sessionOptions = { 
+    secret : 'thisisnotagoodsecret',
+    resave: false,
+    saveUninitialized: false
+};
+
+app.use(session(sessionOptions)); 
+app.use(flash());   
+
 const viewsFolder = fileURLToPath(new URL("./views", import.meta.url));
 app.set('views', viewsFolder);
 
@@ -30,7 +44,7 @@ app.use(express.urlencoded({ extended: true }));
 // FARM ROUTES
 app.get('/farms', async (req, res) => {
     const farms = await Farm.find({});
-    res.render('farms/index', { farms });
+    res.render('farms/index', { farms, messages: req.flash('success')});
 });
 
 app.get('/farms/new', (req, res) => {
@@ -40,6 +54,7 @@ app.get('/farms/new', (req, res) => {
 app.post('/farms', async (req, res) => {
     const farm = new Farm(req.body);
     await farm.save();
+    req.flash('success', 'Successfully made a new farm!');
     res.redirect('/farms');
 });
 
