@@ -64,13 +64,20 @@ app.post('/login', async (req, res) => {
     }
 });
 
+app.post('/logout', (req, res) => {
+    req.session.user_id = null;
+    req.session.destroy();
+    res.redirect('/login');
+});
+
 
 app.get('/secret', async (req, res) => {
     if(!req.session.user_id){
         return res.redirect('/login');
     }
+    const user = await User.findOne({ _id: req.session.user_id });
 
-    res.send('This is a secret page');
+    res.render('secret', { user });
 });
 
 app.listen(3000, () => {
