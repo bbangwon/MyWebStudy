@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 import { fileURLToPath } from "url";
 import User from './models/user.js';
 import bcrypt from 'bcrypt';
+import session from 'express-session';
 
 const app = express();
 
@@ -23,6 +24,11 @@ const viewsFolder = fileURLToPath(new URL("./views", import.meta.url));
 app.set('views', viewsFolder);
 
 app.use(urlencoded({ extended: true }));
+app.use(session({
+    secret: 'notagoodsecret',
+    resave: false,
+    saveUninitialized: true
+}));
 
 app.get('/', (req, res) => {
     res.send('This is the home page');
@@ -38,7 +44,8 @@ app.post('/register', async (req, res) => {
     const hash = await bcrypt.hash(password, 12);
     const user = new User({ username, password: hash });
     await user.save();
-    res.redirect('/');
+    req.session.user_id = user._id;
+    res.redirect('/secret');
 });
 
 app.get('/login', (req, res) => {
@@ -50,14 +57,19 @@ app.post('/login', async (req, res) => {
     const user = await User.findOne({ username });
     const validPassword = await bcrypt.compare(password, user.password);
     if (validPassword) {
-        res.send('You are now logged in');
+        req.session.user_id = user._id;
+        return res.redirect('/secret');
     } else {
-        res.send('Try again');
+        res.redirect('/login');
     }
 });
 
 
 app.get('/secret', async (req, res) => {
+    if(!req.session.user_id){
+        return res.redirect('/login');
+    }
+
     res.send('This is a secret page');
 });
 
